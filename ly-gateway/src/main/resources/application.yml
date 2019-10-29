@@ -1,0 +1,51 @@
+# zuul的端口
+server:
+  port: 10010
+
+# zuul的微服务id名
+spring:
+  application:
+    name: api-gateway
+
+# 配置eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+    registry-fetch-interval-seconds: 5 # 拉取服务时长
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}:${server.port}
+
+# 配置zuul
+zuul:
+  prefix: /api # 添加全局路由前缀
+  strip-prefix: true  # 去除前缀，匹配路径
+  routes:
+    item-service: /item/** #配置路径（微服务id名：访问服务路径）
+    upload-service:
+      path: /upload/**
+      serciveId: upload-service
+      strip-prefix: false  # 去除前缀，匹配路径
+  retryable: true
+  ignored-services:
+    - upload-service # 忽略upload-service服务,图片上传是文件的传输，造成不必要的网络负担。
+
+# 配置hystrix
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecond: 5000 # 熔断超时时长：5000ms
+
+# 配置Ribbon
+ribbon:
+  ConnectTimeout: 1000 # 连接超时时间(ms)
+  ReadTimeout: 3500 # 通信超时时间(ms)
+  MaxAutoRetriesNextServer: 0 # 同一服务不同实例的重试次数
+  MaxAutoRetries: 0 # 同一实例的重试次数
+  OkToRetryOnAllOperations: true # 是否对所有操作重试
+
