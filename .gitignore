@@ -20,7 +20,20 @@
 *.zip
 *.tar.gz
 *.rar
+*.iml
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+.idea/
+ly-common/src/test/
+ly-common/target/
+ly-gateway/src/test/
+ly-gateway/target/
+ly-item/ly-item-interface/src/test/
+ly-item/ly-item-interface/target/
+ly-item/ly-item-service/src/test/
+ly-item/ly-item-service/target/
+ly-registry/src/test/
+ly-registry/target/
+ly-uplond/target/
