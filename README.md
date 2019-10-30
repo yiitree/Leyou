@@ -1,4 +1,4 @@
-# 乐优商城
+# 商城
 ## 开发环境：
 Windows、MySQL、Tomcat
 ## 所用框架：
